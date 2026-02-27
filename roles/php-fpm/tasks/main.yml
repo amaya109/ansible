@@ -1,0 +1,40 @@
+---
+- name: Add PHP group
+  group:
+    name: "{{ php_os_group }}"
+    gid: 302
+    state: present
+
+- name: Add PHP user
+  user:
+    name: "{{ php_os_user }}"
+    group: "{{ php_os_group }}"
+    uid: 302
+    createhome: false
+    shell: /sbin/nologin
+    state: present
+
+- name: Include OS Tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Change owner of the log's directory
+  file:
+    path: "{{ php_fpm_logdir }}"
+    owner: "{{ php_os_user }}" 
+    group: "{{ php_os_group }}"   
+    recurse: true            
+    state: directory 
+
+- name: Copy default process pool configure
+  template:
+    src: "demo.php.com.conf.j2"
+    dest: "{{ php_fpm_confdir }}/demo.php.com"
+  notify: reload php-fpm
+
+- name: Setup php.ini
+  blockinfile:
+    path: "{{ php_config_file }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK PHP.INI"
+    block: "{{ lookup('file', 'php.ini') }}"
+  notify: reload php-fpm
+

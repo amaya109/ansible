@@ -1,0 +1,7 @@
+---
+- name: Install percona release repo
+  yum:
+    name: "{{ percona_release_repo }}"
+    disable_gpg_check: true
+    state: present
+

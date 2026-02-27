@@ -1,0 +1,4 @@
+---
+# defaults file for gatus
+gatus_github_repo: "https://github.com/TwiN/gatus.git"
+gatus_root_directory: "/var/www/gatus"

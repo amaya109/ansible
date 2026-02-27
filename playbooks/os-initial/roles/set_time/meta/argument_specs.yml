@@ -1,0 +1,11 @@
+---
+argument_specs:
+  # roles/set_time/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the set_time role
+    options:
+      timezone:
+        type: str
+        required: false
+        default: ""
+        description: "timezone"

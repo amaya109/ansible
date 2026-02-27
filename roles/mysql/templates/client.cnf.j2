@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+[client]
+port	= {{ mysql_port }}
+socket	= {{ mysql_instance_dir }}/mysql.sock

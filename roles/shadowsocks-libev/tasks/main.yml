@@ -1,0 +1,6 @@
+---
+- name: Install shadowsocks-libev
+  package:
+    name: "shadowsocks-libev"
+    state: latest
+  notify: restart shadowsocks-libev

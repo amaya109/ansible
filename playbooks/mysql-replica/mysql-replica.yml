@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - role: mysql
+      vars:
+        mode: "replica"

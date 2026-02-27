@@ -1,0 +1,8 @@
+---
+- name: Allow zabbix-proxy connections
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+    - "10051"

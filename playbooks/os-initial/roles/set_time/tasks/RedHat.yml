@@ -1,0 +1,11 @@
+---
+- name: Install chrony
+  yum:
+    name: chrony
+    state: latest
+
+- name: Enable chrony to sync datetime
+  systemd:
+    name: chronyd
+    state: restarted
+    enabled: yes

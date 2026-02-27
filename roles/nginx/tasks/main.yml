@@ -1,0 +1,51 @@
+---
+- name: Include certbot role
+  include_role: 
+    name: "certbot"
+  vars:
+    certbot_nginx_plugin: true
+
+- name: Include os tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Install nginx
+  package:
+    name: "nginx"
+    state: latest
+  notify: restart nginx
+
+- name: Set regular clean nginx log
+  template: 
+    src: nginx.logrotate.j2
+    dest: /etc/logrotate.d/nginx
+
+- name: Sync nginx conf.d and ssl.d
+  synchronize:
+    src: "{{ item }}"
+    dest: "{{ nginx_config_dir }}"
+  loop:
+    - "conf.d"
+    - "ssl.d"
+  notify: reload nginx
+
+- name: Create nginx sites configuration directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ nginx_sites_enabled_dir }}"
+    - "{{ nginx_sites_available_dir }}"
+
+- name: Create log directory
+  file:
+    path: "{{ nginx_log_dir }}" 
+    owner: "{{ nginx_os_user }}"
+    group: "{{ nginx_os_group }}"
+    state: directory
+
+- name: Setup nginx.conf
+  template:
+    src: "nginx.conf.j2"
+    dest: "{{ nginx_config_dir }}/nginx.conf"
+  notify: reload nginx
+

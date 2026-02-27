@@ -1,0 +1,5 @@
+[all]
+[all:vars]
+#primary_host     = ""        # Require.
+#primary_port     = 3306      # If no set, default primary_port is 3306.
+

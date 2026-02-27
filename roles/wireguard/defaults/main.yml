@@ -1,0 +1,9 @@
+---
+# WireGuard 默认配置
+wireguard_port: 51820
+wireguard_interface: "wg0"
+wireguard_address: "10.0.0.1/24"
+wireguard_dns: "8.8.8.8"
+wireguard_private_key: ""
+wireguard_public_key: ""
+wireguard_peers: []  # 用户可以在 playbook 中定义客户端配置

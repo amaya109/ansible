@@ -1,0 +1,8 @@
+---
+# tasks file for consul
+- name: Install Consul
+  ansible.builtin.package:
+    name: consul
+    state: latest
+  notify: restart consul
+

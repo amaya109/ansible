@@ -1,0 +1,36 @@
+---
+- name: Install system software [ {{ ansible_os_family }} ]
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - bind-utils
+      - crontabs
+#      - nethogs  #RHEL == 10.0 not supported
+      - perf
+      - vim-enhanced
+
+- name: Install system software [ {{ ansible_os_family }} == "7" ]
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  when: (ansible_distribution_major_version | int) == 7
+  vars:
+    packages:
+      - deltarpm
+      - python2-pip
+      - python36
+      - python-simplejson
+      - python-httplib2
+      - python-setuptools
+
+- name: Install system software [ {{ ansible_os_family }} >= "8" ]
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  when: (ansible_distribution_major_version | int) >= 8
+  vars:
+    packages:
+      - python3-pip
+      - python3-setuptools

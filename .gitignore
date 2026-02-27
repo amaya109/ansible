@@ -1,0 +1,13 @@
+collections/ansible_collections
+cp/
+galaxy_cache/
+galaxy_token
+tmp/
+playbooks/**/hosts
+playbooks/**/group_vars/*.yml
+playbooks/**/group_vars/*.yaml
+playbooks/**/host_vars/*.yml
+playbooks/**/host_vars/*.yaml
+*.retry
+inventory/zabbix.ini
+.venv/

@@ -1,0 +1,82 @@
+---
+- name: Include os tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Set zabbix mysql password
+  set_fact:
+    zabbix_db_info: "{{ zabbix_db_info | combine({'password': lookup('community.general.random_string', min_lower=1, min_upper=1, min_special=1, override_special='_', min_numeric=1, length=16) }) }}"
+  when: zabbix_db_info.password is not defined or zabbix_db_info.password | length == 0
+
+- name: Create web configration directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ php_os_user }}"
+    group: "{{  php_os_group}}"
+    recurse: true
+    state: directory
+  loop:
+    - "/etc/zabbix/web"
+
+- name: Set mysql variables
+  community.mysql.mysql_variables:
+    variable: log_bin_trust_function_creators
+    value: 1
+    login_unix_socket: "{{ mysql_unix_socket }}"
+
+- name: Import zabbix db
+  mysql_db:
+    name: "{{ zabbix_db_info.db }}"
+    login_unix_socket: "{{ mysql_unix_socket }}"  
+    state: import
+    encoding: utf8mb4
+    collation: utf8mb4_bin
+    target: "/usr/share/zabbix-sql-scripts/mysql/server.sql.gz"
+    force: true
+
+- name: Set mysql variables
+  community.mysql.mysql_variables:
+    variable: log_bin_trust_function_creators
+    value: 0
+    login_unix_socket: "{{ mysql_unix_socket }}"
+
+- name: Create zabbix user
+  mysql_user:
+    name: "{{ zabbix_db_info.user }}"
+    host: "{{ zabbix_db_info.host }}"
+    password: "{{ zabbix_db_info.password }}"
+    priv: "{{ zabbix_db_info.db }}.*:ALL"
+    login_unix_socket: "{{ mysql_unix_socket }}"
+    login_user: "root"
+    state: present
+
+- name: Set db pasword in zabbix_server.conf
+  blockinfile:
+    path: "/etc/zabbix/zabbix_server.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK DBPASSWORD"
+    block: |
+      DBHost=127.0.0.1
+      DBPassword={{ zabbix_db_info.password }}
+  notify: restart zabbix-server
+
+- name: Copy nginx configuration file
+  template:
+    src: "nginx.zabbix.conf.j2"
+    dest: "{{ nginx_sites_available_dir }}/{{ zabbix_server_hostname }}.conf"
+  notify: reload nginx
+
+- name: Enable zabbix's nginx configuration file
+  file:
+    src: "{{ nginx_sites_available_dir }}/{{ zabbix_server_hostname }}.conf"
+    dest: "{{ nginx_sites_enabled_dir }}/{{ zabbix_server_hostname }}.conf"
+    state: link
+  notify: reload nginx
+
+- name: Copy phh configuration file
+  template:
+    src: "php.zabbix.conf.j2"
+    dest: "{{ php_fpm_confdir }}/{{ zabbix_server_hostname }}.conf"
+  notify: reload php-fpm
+
+- name: Print zabbix database information
+  debug:
+    var: zabbix_db_info

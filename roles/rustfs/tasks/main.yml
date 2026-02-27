@@ -1,0 +1,25 @@
+---
+- name: Include os tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Set regular clean rustfs log
+  template: 
+    src: rustfs.logrotate.j2
+    dest: /etc/logrotate.d/rustfs
+
+- name: Create rustfs sites configuration directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ rustfs_os_user }}"
+    group: "{{ rustfs_os_group }}"
+    state: directory
+  loop:
+    - "{{ rustfs_sites_enabled_dir }}"
+    - "{{ rustfs_sites_available_dir }}"
+
+- name: Rander rustfs configuration file
+  template:
+    src: "rustfs.j2"
+    dest: "{{ rustfs_configuration_file }}"
+  notify: reload rustfs
+

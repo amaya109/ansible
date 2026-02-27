@@ -1,0 +1,4 @@
+---
+# defaults file for kubernetes
+k8s_version: "1.34"
+  #kube_dir: "$HOME/k8s"

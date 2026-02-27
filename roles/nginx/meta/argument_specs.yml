@@ -1,0 +1,29 @@
+---
+argument_specs:
+  # roles/nginx/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the nginx role
+    options:
+      nginx_os_user:
+        type: "str"
+        required: false
+        default: "www"
+        description: "Nginx running username."
+
+      nginx_os_group:
+        type: "str"
+        required: false
+        default: "www"
+        description: "Nginx running usergroup."
+
+      nginx_log_dir:
+        type: "path"
+        required: false
+        default: "/var/log/nginx"
+        description: "Nginx log path."
+
+      nginx_config_dir:
+        type: "path"
+        required: false
+        default: "/etc/nginx"
+        description: "Nginx configuration path."

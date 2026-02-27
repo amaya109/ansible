@@ -1,0 +1,6 @@
+[zabbix_agent]
+[zabbix_server]
+[zabbix_proxy]
+[all]
+[all:vars]
+#zabbix_server_hostname="zabbix.example.com"

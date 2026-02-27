@@ -1,0 +1,22 @@
+---
+- name: Download nginx repo GPG key
+  ansible.builtin.apt_key:
+    url: "https://nginx.org/keys/nginx_signing.key"
+    keyring: /usr/share/keyrings/nginx-archive-keyring.gpg
+    state: present
+
+- name: Add nginx apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/ubuntu {{ ansible_distribution_release }} nginx"
+    filename: nginx
+    state: present
+    update_cache: true
+
+- name: Allow http and https connections
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+    - "http"
+    - "https"

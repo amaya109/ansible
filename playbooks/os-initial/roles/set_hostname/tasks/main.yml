@@ -1,0 +1,9 @@
+---
+- name: Set hostname
+  hostname:
+    name: "{{ hostname }}"
+  when: hostname is defined
+
+- name: Re-read facts after set hostname
+  setup: 
+    filter: ansible_hostname

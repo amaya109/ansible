@@ -1,0 +1,9 @@
+[v2ray]
+# host
+
+[v2ray:vars]
+cloudflare_zone_record="v2raynode01"
+cloudflare_zone="example.com"
+cloudflare_token="LVEiBocbnfV4umzx1D0N1WYo9UxBhvjrV6tLTiiL"
+
+

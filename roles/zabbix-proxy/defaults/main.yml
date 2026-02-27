@@ -1,0 +1,4 @@
+---
+mode: "active"
+#mode: "passive"
+zabbix_data_path: "/var/lib/zabbix"

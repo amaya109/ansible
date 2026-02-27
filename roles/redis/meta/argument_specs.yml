@@ -1,0 +1,23 @@
+---
+argument_specs:
+  # roles/redis/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the redis role
+    options:
+      redis_listen_addr:
+        type: "str"
+        required: false
+        default: "127.0.0.1 -::1"
+        description: "Redis listen address."
+
+      redis_listen_port:
+        type: "int"
+        required: false
+        default: 6379
+        description: "Redis listen port."
+
+      redis_password:
+        type: "str"
+        required: false
+        default: "1EFxbDogO3C+zveK"
+        description: "Redis require password."

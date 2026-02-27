@@ -1,0 +1,13 @@
+---
+# handlers file for gatus
+- name: Start gatus
+  listen: "start gatus"
+  community.docker.docker_compose_v2:
+    project_src: "{{ gatus_root_directory }}"
+    state: present
+
+- name: Restart gatus
+  listen: "restart gatus"
+  community.docker.docker_compose_v2:
+    project_src: "{{ gatus_root_directory }}"
+    state: restarted

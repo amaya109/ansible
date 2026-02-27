@@ -1,0 +1,25 @@
+- name: Install gogs service
+  include_role:
+    name: gogs
+
+- name: Install nginx service
+  include_role:
+    name: nginx
+    public: true
+
+- name: Render gogs nginx configration
+  template:
+    src: "gogs-nginx.conf.j2"
+    dest: "{{ nginx_sites_available_dir }}/{{ gogs_domain }}.conf"
+  notify: reload nginx
+
+- name: Link gogs nginx configration
+  file:
+    src: "{{ nginx_sites_available_dir }}/{{ gogs_domain }}.conf"
+    dest: "{{ nginx_sites_enabled_dir }}/{{ gogs_domain }}.conf"
+    state: link
+  notify: reload nginx
+
+- name: Print gogs webui url
+  debug:
+    msg: "http://{{ gogs_domain }}"

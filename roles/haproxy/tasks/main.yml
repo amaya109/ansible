@@ -1,0 +1,9 @@
+---
+- name: Install haproxy
+  package: 
+    name: "{{ item }}"
+    state: latest
+  notify: restart haproxy
+  loop:
+    - haproxy
+

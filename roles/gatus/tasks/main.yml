@@ -1,0 +1,19 @@
+---
+# tasks file for gatus
+- name: Ensure config directory exists
+  file:
+    path: "{{ gatus_root_directory }}/config"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: "{{ gatus_root_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: start gatus
+

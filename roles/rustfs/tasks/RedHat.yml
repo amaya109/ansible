@@ -1,0 +1,10 @@
+---
+- name: Allow rustfs connections
+  firewalld:
+    zone: public
+    port: "{{ item }}"
+    immediate: yes
+    permanent: true
+    state: enabled
+  with_items:
+    - "{{ rustfs_listen_port }}/tcp"

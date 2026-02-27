@@ -1,0 +1,27 @@
+---
+- name: Include OS task
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Install redis
+  package:
+    name: "{{ item }}"
+    state: latest
+  notify: restart redis
+  loop:
+    - redis
+
+- name: Modify sys args
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: true
+  with_items:
+    - { name: vm.overcommit_memory, value: 1 }
+
+- name: Setup redis configuration
+  blockinfile:
+    path: "/etc/redis/redis.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK Redis.conf"
+    block: "{{ lookup('template', 'redis.conf.j2') }}"
+  notify: restart redis

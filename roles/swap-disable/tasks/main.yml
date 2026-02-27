@@ -1,0 +1,26 @@
+---
+# tasks file for swap-disable
+- name: Umount swapfile
+  shell: swapoff -a
+
+- name: Disable swap
+  ansible.posix.mount:
+    path: none
+    fstype: swap
+    state: absent
+
+- name: Set swap system parameters
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: yes
+  loop:
+    - {name: vm.swappiness, value: 0}
+
+- name: Mask swap.target to prevent future activation
+  ansible.builtin.systemd:
+    name: swap.target
+    masked: yes
+    enabled: no
+    state: stopped

@@ -1,0 +1,12 @@
+---
+- name: Setup journald
+  blockinfile:
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR RESOlVE JOURNALD HIGH MEMORY PROBLEM"
+    dest: "/etc/systemd/journald.conf"
+    block: "Storage=persistent"
+
+- name: Restart journald
+  systemd:
+    name: systemd-journald
+    state: restarted
+    enabled: yes

@@ -1,0 +1,25 @@
+---
+- name: Install Zabbix-agent2
+  package:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - "zabbix-agent2"
+    - "zabbix-agent2-plugin-*"
+  notify: restart zabbix-agent2
+
+- name: Configure Zabbix_agent2.conf
+  blockinfile:
+    path: "/etc/zabbix/zabbix_agent2.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK zabbix-agent"
+    block: "{{ lookup('template', 'zabbix_agent2.conf.j2') }}"
+  when: set_config
+  notify: restart zabbix-agent2
+
+- name: Rsync Monitor Scripts
+  synchronize:
+    src: "{{ item }}"
+    dest: "/etc/zabbix/"
+  notify: restart zabbix-agent2
+  loop:
+    - "zabbix_agent2.d"

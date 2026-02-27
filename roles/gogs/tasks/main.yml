@@ -1,0 +1,34 @@
+---
+- name: Add gogs os group
+  group:
+    name: "{{ gogs_os_group }}"
+    state: present
+    system: yes
+
+- name: Add gogs os user
+  user:
+    name: "{{ gogs_os_user }}"
+    group: "{{ gogs_os_group }}"
+    createhome: yes
+    shell: /sbin/nologin
+    state: present
+    system: yes
+
+- name: Installing gogs
+  unarchive:
+    src: "{{ gogs_download_url }}"
+    dest: "{{ gogs_install_path }}"
+    remote_src: yes
+    owner: "{{ gogs_os_user }}"
+    group: "{{ gogs_os_group }}"
+  notify: restart gogs
+
+
+- name: Set systemd gogs service
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/systemd/system/{{ item }}
+  notify: restart gogs
+  loop:
+    - "gogs.service"
+

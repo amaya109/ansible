@@ -1,0 +1,10 @@
+---
+rustfs_os_user: "rustfs-user"
+rustfs_os_group: "{{ rustfs_os_user }}"
+rustfs_listen_port: 9000
+rustfs_access_key: "rustfsadmin"
+rustfs_secret_key: "rustfsadmin"
+rustfs_configuration_file: "/etc/default/rustfs"
+rustfs_command: "/usr/local/bin/rustfs"
+rustfs_log_dir: "/var/log/rustfs"
+rustfs_default_volume: "/data/rustfs"

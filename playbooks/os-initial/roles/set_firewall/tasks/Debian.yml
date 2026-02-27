@@ -1,0 +1,27 @@
+---
+- name: Install ufw
+  apt:
+    name: ufw
+    state: present
+
+- name: Start ufw service
+  systemd:
+    name: ufw
+    enabled: yes
+    state: started
+
+- name: Enable ufw service
+  ufw:
+    state: enabled
+
+- name: Allow ssh connection
+  ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+
+- name: Set whiteList
+  ufw:
+    rule: allow
+    src: "{{ item }}"
+  loop: "{{ internal_whitelist + external_whitelist }}"

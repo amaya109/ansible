@@ -1,0 +1,6 @@
+---
+zabbix_db_info:
+  user: "zabbix"
+  db: "zabbix"
+  host: "127.0.0.1"
+  password: ""

@@ -1,0 +1,20 @@
+---
+- name: Install system software [ {{ ansible_os_family }} ]
+  apt: 
+    name: "{{ packages }}"
+    state: latest
+    update_cache: true
+    lock_timeout: 600
+  vars:
+    packages:
+      - apt-file
+      - bind9-dnsutils        #dig
+      - cron
+      - inetutils-ping
+      - linux-tools-common    #perf
+      - nethogs
+      - python3-pip
+      - python3-setuptools
+      - vim
+
+

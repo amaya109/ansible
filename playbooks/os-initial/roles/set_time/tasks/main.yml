@@ -1,0 +1,8 @@
+---
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  when: timezone
+
+- name: Include os tasks
+  include_tasks: "{{ ansible_os_family }}.yml"

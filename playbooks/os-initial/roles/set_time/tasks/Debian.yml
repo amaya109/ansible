@@ -1,0 +1,12 @@
+---
+- name: Install systemd-timesyncd
+  apt:
+    name: systemd-timesyncd
+    state: present
+
+- name: Enable systemd-timesyncd to sync datetime
+  systemd:
+    name: systemd-timesyncd
+    state: restarted
+    enabled: yes
+

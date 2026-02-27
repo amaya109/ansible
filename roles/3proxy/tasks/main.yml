@@ -1,0 +1,10 @@
+---
+# tasks file for 3proxy
+- name: Include os tasks
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Add 3proxy user and password
+  shell: "sh /usr/local/3proxy/conf/add3proxyuser.sh {{ item.username }} {{ item.password }}" 
+  notify: restart 3proxy
+  loop: "{{ threeproxy_userlist }}"
+
