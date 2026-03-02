@@ -1,3 +1,16 @@
 ---
+#- name: Stop this role if nameserver invalid (Require ansible-core 2.18)
+#  meta: end_role
+#  when:
+#    - nameserver is defined
+#    - nameserver is iterable
+#    - nameserver is not string
+#    - nameserver | length > 0
+
 - name: Include os tasks
   include_tasks: "{{ ansible_os_family }}.yml"
+  when:
+    - nameserver is defined
+    - nameserver is iterable
+    - nameserver is not string
+    - nameserver | length > 0

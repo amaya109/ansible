@@ -3,6 +3,7 @@
     - os
   roles:
     - role: set_hostname    
+    - role: set_nameserver
     - role: set_repo
     - role: set_journald
     - role: install_software
