@@ -1,0 +1,23 @@
+---
+# tasks file for mongodb
+- name: Include MongoDB tasks [ {{ ansible_os_family }} ]
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Install MongoDB
+  ansible.builtin.package:
+    name: "mongodb-org"
+    state: present
+
+- name: Start MongoDB
+  ansible.builtin.systemd:
+    name: mongod
+    enabled: true
+    daemon_reload: true
+    state: started
+
+- name: Make sure MongoDB service is running
+  ansible.builtin.service_facts: {}
+  register: __service_status
+  until: "__service_status.ansible_facts.services['mongod.service'].state == 'running'"
+  retries: 5
+  delay: 5

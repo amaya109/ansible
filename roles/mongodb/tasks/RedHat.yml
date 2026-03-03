@@ -1,0 +1,4 @@
+- name: Configure the repository
+  template:
+    src: "mongodb-org-repo.j2"
+    dest: "mongodb-org-{{ mongodb_version }}.repo"

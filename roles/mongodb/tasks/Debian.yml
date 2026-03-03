@@ -1,0 +1,14 @@
+- name: Download MongoDB GPG key (ASCII armored)
+  get_url:
+    url: "https://pgp.mongodb.com/server-{{ mongodb_version }}.asc"
+    dest: "/usr/share/keyrings/mongodb-server-{{ mongodb_version }}.asc"
+    mode: '0644'
+
+- name: Add MongoDB apt repository
+  apt_repository:
+    repo: >
+      deb [ signed-by=/usr/share/keyrings/mongodb-server-{{ mongodb_version }}.asc ]
+      https://repo.mongodb.org/apt/{{ ansible_distribution | lower }} {{ ansible_distribution_release }}/mongodb-org/{{ mongodb_version }} multiverse
+    filename: "mongodb-org-{{ mongodb_version }}"
+    state: present
+    update_cache: yes
