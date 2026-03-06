@@ -3,7 +3,7 @@
 - name: Install docker engine
   package:
     name: "{{ item }}"
-    state: latest
+    state: present
   loop:
     - docker-ce
     - docker-ce-cli
