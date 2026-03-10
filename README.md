@@ -1,4 +1,4 @@
-# Ansible & sshpass 安装指南
+# Ansible 安装指南
 
 适用于 Ubuntu、CentOS、macOS 的安装说明。
 
@@ -64,7 +64,7 @@ git -v
 
 ---
 
-# 克隆Ansible 公共roles
+# 克隆Ansible git repo
 
 ```bash
 # 删除/root/.ansible (如果已经存在)
