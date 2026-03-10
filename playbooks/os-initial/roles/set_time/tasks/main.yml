@@ -2,7 +2,7 @@
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
-  when: timezone
+  when: timezone | length > 0
 
 - name: Include os tasks
   include_tasks: "{{ ansible_os_family }}.yml"
