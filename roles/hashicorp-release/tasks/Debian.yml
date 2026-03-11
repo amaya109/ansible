@@ -11,7 +11,4 @@
     repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.asc] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main"
     filename: "hashicorp"
     state: present
-
-- name: Update APT cache
-  ansible.builtin.apt:
     update_cache: true

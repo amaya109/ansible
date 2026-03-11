@@ -6,7 +6,6 @@
       - iptables
       - resolvconf
     state: latest
-    update_cache: true
 
 - name: Ensure WireGuard configuration directory exists
   file:
