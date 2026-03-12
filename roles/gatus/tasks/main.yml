@@ -8,6 +8,12 @@
     group: root
     mode: "0755"
 
+- name: Render gatus alerts file
+  template:
+    src: "config/alerts.yml"
+    dest: "{{ gatus_root_directory }}/config/alerts.yml"
+  notify: restart gatus
+
 - name: Copy docker-compose.yml
   copy:
     src: docker-compose.yml

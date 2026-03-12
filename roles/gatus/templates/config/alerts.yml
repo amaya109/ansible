@@ -1,0 +1,6 @@
+alerting:
+  telegram:
+    token: "{{ telegram_token | default('') }}"
+    id: "{{ telegram_id | default('') }}"
+  slack:
+    url: "{{ slack_webhook_url | default('') }}"
