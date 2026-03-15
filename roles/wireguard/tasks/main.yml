@@ -26,7 +26,7 @@
     mode: '0600'
 
 - name: Generate server public key
-  command: echo "{{ private_key.stdout if wireguard_private_key == '' else wireguard_private_key }}" | wg pubkey
+  shell: echo "{{ private_key.stdout if wireguard_private_key == '' else wireguard_private_key }}" | wg pubkey
   register: public_key
   changed_when: public_key.stdout != ""
 
