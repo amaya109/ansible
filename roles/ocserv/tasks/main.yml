@@ -20,7 +20,7 @@
 - name: Add users for plain authentication
   lineinfile:
     path: "{{ ocserv_confdir }}/ocpasswd"
-    line: "{{ item.username }}:{{ item.password | password_hash('sha512') }}"
+    line: "{{ item.username }}:*:{{ item.password | password_hash('sha256') }}"
     create: true
   notify: reload ocserv
   with_items: "{{ ocserv_users }}"
