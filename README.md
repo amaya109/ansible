@@ -74,5 +74,6 @@ git -v
 git clone https://github.com/amaya109/ansible.git /root/.ansible
 
 # 设置ansible配置文件变量
-export ANSIBLE_CONFIG=~/.ansible/ansible.cfg
+echo "export ANSIBLE_CONFIG=~/.ansible/ansible.cfg" >> /etc/profile
+source /etc/profile
 ```
