@@ -72,4 +72,7 @@ git -v
 
 # 克隆Ansible git repo
 git clone https://github.com/amaya109/ansible.git /root/.ansible
+
+# 设置ansible配置文件变量
+export ANSIBLE_CONFIG=~/.ansible/ansible.cfg
 ```
