@@ -12,6 +12,12 @@
     - docker-compose-plugin
     - bash-completion
 
+- name: Copy docker daemon.json
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  notify: restart docker
+
 - name: Enable docker now
   systemd:
     name: docker
