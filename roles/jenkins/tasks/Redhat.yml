@@ -12,5 +12,5 @@
 
 - name: Install jave runtime environment
   yum:
-    name: "java-17-openjdk"
+    name: "java-21-openjdk"
     state: latest

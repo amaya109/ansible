@@ -7,12 +7,12 @@
 
 - name: Set up jenkins repository
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] {{ jenkins_pkg_addr }} binary"
+    repo: "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] {{ jenkins_pkg_addr }} binary/"
     state: present
     filename: jenkins
     update_cache: yes
 
 - name: Install jave runtime environment
   apt:
-    name: "openjdk-17-jre"
+    name: "openjdk-21-jre"
     state: latest

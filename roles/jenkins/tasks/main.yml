@@ -11,3 +11,23 @@
   loop:
     - jenkins 
     - fontconfig
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  ansible.builtin.meta: flush_handlers
+
+- name: Check if Jenkins initial password exists
+  ansible.builtin.stat:
+    path: /var/lib/jenkins/secrets/initialAdminPassword
+  register: jenkins_password_file
+
+- name: Read Jenkins initial password
+  ansible.builtin.slurp:
+    src: /var/lib/jenkins/secrets/initialAdminPassword
+  register: jenkins_password
+  when: jenkins_password_file.stat.exists
+
+- name: Print Jenkins initial admin password
+  ansible.builtin.debug:
+    msg: "Jenkins initial admin password is {{ jenkins_password.content | b64decode }}"
+  when: jenkins_password_file.stat.exists
+
