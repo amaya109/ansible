@@ -1,15 +1,28 @@
 {{ define "telegram.default.message" }}
+
 🚨 <b>{{ .Status | toUpper }}</b> 🚨
 <b>告警名称:</b> {{ .GroupLabels.alertname }}
 <b>告警级别:</b> {{ .CommonLabels.severity }}
-<b>告警主机:</b> {{ .CommonLabels.instance }}
-<b>告警详情:</b> {{ .CommonAnnotations.description }}
-{{- if .Alerts -}}
-{{ range .Alerts }}
-<b>开始时间:</b>  {{ .StartsAt.Local.Format "2006-01-02 15:04:05" }}
-  {{- if eq .Status "resolved" }}
-<b>结束时间:</b>  {{ .EndsAt.Local.Format "2006-01-02 15:04:05" }}
-  {{ end }}
-{{ end }}
-{{ end }}
+
+{{- range .Alerts }}
+
+<b>告警主机:</b> {{ .Labels.instance }}
+
+<b>告警详情:</b>
+{{ .Annotations.description }}
+
+<b>开始时间:</b>
+{{ .StartsAt.Local.Format "2006-01-02 15:04:05" }}
+
+{{- if eq .Status "resolved" }}
+
+<b>结束时间:</b>
+{{ .EndsAt.Local.Format "2006-01-02 15:04:05" }}
+
+{{- end }}
+
+--------------------------------
+
+{{- end }}
+
 {{ end }}

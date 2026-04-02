@@ -1,5 +1,6 @@
 [prometheus]
 [alertmanager]
 [node_exporter]
+[cadvisor]
 [redis_exporter]
 [mysqld_exporter]

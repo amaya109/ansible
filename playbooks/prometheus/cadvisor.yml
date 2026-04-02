@@ -1,0 +1,4 @@
+---
+- hosts: cadvisor
+  roles:
+    - role: prometheus.prometheus.cadvisor
