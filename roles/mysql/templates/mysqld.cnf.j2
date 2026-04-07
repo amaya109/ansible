@@ -1,6 +1,9 @@
 {{ ansible_managed | comment }}
 
 [mysqld{{ _mysql_defaults_group_suffix }}]
+###### Mysql Plugin ######
+plugin-load-add=mysql_clone.so
+
 ###### Mysql Global ######
 bind_address        = 0.0.0.0
 port                = {{ mysql_port }}

@@ -129,17 +129,18 @@
 - name: Force all notified handlers to run at this point, not waiting for normal sync points
   ansible.builtin.meta: flush_handlers
 
-- name: Check if the clone plugin is installed
-  community.mysql.mysql_query:
-    login_unix_socket: "{{ mysql_unix_socket }}"
-    login_user: root
-    query: "SELECT COUNT(*) AS cnt FROM information_schema.plugins WHERE PLUGIN_NAME='clone';"
-  register: plugin_check
-
-- name: Install clone plugin
-  community.mysql.mysql_query:
-    login_unix_socket: "{{ mysql_unix_socket }}"
-    login_user: root
-    query: "INSTALL PLUGIN clone SONAME 'mysql_clone.so';"
-  when: plugin_check.query_result[0][0].cnt | int == 0
-  changed_when: true  
+    # 改成写到mysqld.cnf的方式
+    #- name: Check if the clone plugin is installed
+    #  community.mysql.mysql_query:
+    #    login_unix_socket: "{{ mysql_unix_socket }}"
+    #    login_user: root
+    #    query: "SELECT COUNT(*) AS cnt FROM information_schema.plugins WHERE PLUGIN_NAME='clone';"
+    #  register: plugin_check
+    #
+    #- name: Install clone plugin
+    #  community.mysql.mysql_query:
+    #    login_unix_socket: "{{ mysql_unix_socket }}"
+    #    login_user: root
+    #    query: "INSTALL PLUGIN clone SONAME 'mysql_clone.so';"
+    #  when: plugin_check.query_result[0][0].cnt | int == 0
+    #  changed_when: true  
