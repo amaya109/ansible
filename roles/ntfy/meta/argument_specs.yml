@@ -1,0 +1,29 @@
+---
+argument_specs:
+  # roles/ntfy/tasks/main.yml entry point
+  main:
+    short_description: Main entry point for the ntfy role
+    options:
+      ntfy_version:
+        type: "int"
+        required: false
+        default: "1"
+        description: "Gitea version."
+
+      ntfy_bind_address:
+        type: "str"
+        required: false
+        default: "127.0.0.1"
+        description: "Gitea bind address."
+
+      ntfy_bind_port:
+        type: "str"
+        required: false
+        default: 3000
+        description: "Gitea bind port."
+
+      ntfy_data_dir:
+        type: "path"
+        required: false
+        default: "/data0/ntfy"
+        description: "Gitea data directory."

@@ -1,0 +1,20 @@
+---
+# tasks file for ntfy
+- name: Create ntfy directory
+  file:
+    path: "{{ ntfy_directory }}"
+    state: directory
+    mode: '0755'
+
+- name: Copy Docker Compose file for ntfy
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ ntfy_directory }}/{{ item }}"
+  loop:
+    - "docker-compose.yml"
+
+- name: Start ntfy with Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ ntfy_directory }}"
+    state: present
+

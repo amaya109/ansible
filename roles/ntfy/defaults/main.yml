@@ -1,0 +1,5 @@
+---
+# defaults file for ntfy
+ntfy_domain: "ntfy.example.com"
+ntfy_listen_port: "2586"
+ntfy_directory: "/docker/ntfy"

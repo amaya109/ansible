@@ -1,0 +1,36 @@
+# 记得配置https
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+server {
+    listen 80;
+    server_name {{ ntfy_domain }};
+
+    location / {
+        proxy_pass http://127.0.0.1:{{ ntfy_listen_port }};
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Port $server_port; # iOS 推送需要
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+
+        # 禁用缓冲，确保消息流 (SSE/JSON stream) 能即时到达
+        proxy_buffering off;
+        proxy_request_buffering off;
+
+        proxy_connect_timeout 3m;
+        proxy_send_timeout 3m;
+        proxy_read_timeout 3m;
+    }
+
+    access_log /var/log/nginx/{{ ntfy_domain }}.access.log  main_product;
+    error_log /var/log/nginx/{{ ntfy_domain }}.error.log;
+
+
+}
