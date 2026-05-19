@@ -1,0 +1,4 @@
+---
+- hosts: blackbox_exporter
+  roles:
+    - role: prometheus.prometheus.blackbox_exporter

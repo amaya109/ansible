@@ -4,3 +4,4 @@
 [cadvisor]
 [redis_exporter]
 [mysqld_exporter]
+[blackbox_exporter]
