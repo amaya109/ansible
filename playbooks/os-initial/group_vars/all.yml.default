@@ -5,7 +5,7 @@ root_password: ""
 grub_plain_password: ""
 
 # Timezone
-timezone: ""
+tz: ""
 
 # DNS [type: list] (Optional)
 #nameserver:

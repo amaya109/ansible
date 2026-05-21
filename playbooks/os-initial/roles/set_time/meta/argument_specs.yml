@@ -4,7 +4,7 @@ argument_specs:
   main:
     short_description: Main entry point for the set_time role
     options:
-      timezone:
+      tz:
         type: str
         required: false
         default: ""
