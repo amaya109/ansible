@@ -1,6 +1,11 @@
 {{ define "telegram.default.message" }}
 
-🚨 <b>{{ .Status | toUpper }}</b> 🚨
+{{- if eq .Status "firing" }}
+🚨 <b>FIRING</b> 🚨
+{{- else if eq .Status "resolved" }}
+✅ <b>RESOLVED</b> ✅
+{{- end }}
+
 <b>告警名称:</b> {{ .GroupLabels.alertname }}
 <b>告警级别:</b> {{ .CommonLabels.severity }}
 
