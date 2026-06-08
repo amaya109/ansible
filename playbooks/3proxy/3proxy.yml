@@ -2,6 +2,3 @@
  - hosts: 3proxy
    roles:
      - role: 3proxy
-       vars:
-         threeproxy_userlist:
-           - {username: "proxyuser", password: "C7oPGasZBSw"}
