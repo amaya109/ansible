@@ -10,10 +10,6 @@
     enabled: yes
     state: started
 
-- name: Enable ufw service
-  ufw:
-    state: enabled
-
 - name: Allow ssh connection
   ufw:
     rule: allow
@@ -25,3 +21,8 @@
     rule: allow
     src: "{{ item }}"
   loop: "{{ internal_whitelist + external_whitelist }}"
+
+- name: Enable ufw service
+  ufw:
+    state: enabled
+
