@@ -10,6 +10,7 @@
       - apt-file
       - bind9-dnsutils        #dig
       - cron
+      - gnupg
       - inetutils-ping
       - linux-tools-common    #perf
       - nethogs

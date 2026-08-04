@@ -1,0 +1,4 @@
+---
+ - hosts: ntfy
+   roles:
+     - role: ntfy
