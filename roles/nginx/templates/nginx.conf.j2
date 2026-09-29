@@ -46,6 +46,7 @@ http {
     sendfile on;
     tcp_nodelay on;
     tcp_nopush on;
+    http2 on;
 
 ## Resolver Options
     resolver 1.1.1.1 8.8.8.8 114.114.114.114 valid=300s ipv6=off;
