@@ -7,4 +7,5 @@ _docker_completion_script:
   fish: "~/.config/fish/completions/docker.fish"
 docker_completion_script: "{{ _docker_completion_script[shell] }}"
 docker_completion_directory: "{{ docker_completion_script | dirname}}"
-
+docker_cn_mirrors:
+  - "https://docker.m.daocloud.io"

@@ -1,5 +1,8 @@
 ---
 # tasks file for docker-engine
+- name: Get IP info
+  ipinfoio_facts:
+
 - name: Install docker engine
   package:
     name: "{{ item }}"
@@ -13,8 +16,8 @@
     - bash-completion
 
 - name: Copy docker daemon.json
-  copy:
-    src: daemon.json
+  template:
+    src: daemon.json.j2
     dest: /etc/docker/daemon.json
   notify: restart docker
 

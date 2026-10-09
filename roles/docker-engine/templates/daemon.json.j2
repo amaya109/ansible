@@ -4,5 +4,8 @@
     "max-size": "100m",
     "max-file": "3"
   },
+{% if country == "CN"  %}
+  "registry-mirrors": {{ docker_cn_mirrors | to_json }},
+{% endif %}
   "live-restore": true
 }
